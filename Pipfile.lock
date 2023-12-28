@@ -1,0 +1,25 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "a89455824a9137ef63ee30bf7c73cf4a0f7e1266b3488b7f938b8c38b6ebac6f"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.12"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "csv2sql": {
+            "editable": true,
+            "file": "."
+        }
+    },
+    "develop": {}
+}
