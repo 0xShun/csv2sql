@@ -52,7 +52,7 @@ def _create_participant_table(db: sqlite3.Cursor):
         '    is_survey_length_okay           TEXT     NOT NULL,'
         '    survey_difficulty               TEXT     NOT NULL,'
         '    event_location_suggestions      TEXT     NULL,'
-        '    message_for_dev8                TEXT     NULL,'
+        '    message_for_dev8                TEXT     NULL'
         ');'
     )
     db.execute(query)

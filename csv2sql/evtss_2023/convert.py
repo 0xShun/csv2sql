@@ -3,7 +3,6 @@ import sqlite3
 
 
 def convert(file: csv.DictReader, db: sqlite3.Cursor):
-    next(file)  # Skip header.
     for row in file:
         participant_id: int = _add_participant(
             db,
@@ -31,7 +30,6 @@ def convert(file: csv.DictReader, db: sqlite3.Cursor):
             row['Event Location'],
             row['Message for Dev8']
         )
-        print(participant_id)
 
 
 def _add_participant(db: sqlite3.Cursor,
@@ -72,8 +70,8 @@ def _add_participant(db: sqlite3.Cursor,
         '                        oss_code_ai_training_sentiment,'
         '                        is_survey_length_okay, survey_difficulty,'
         '                        event_location_suggestions, message_for_dev8)'
-        '            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,'
-        '                   ?, ?, ?, ?, ?, ?);'
+        '            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,'
+        '                    ?, ?, ?, ?, ?, ?);'
     )
     params: tuple = (
         time_submitted, gender, location, hometown, age, educational_attainment,
@@ -90,9 +88,90 @@ def _add_participant(db: sqlite3.Cursor,
     return db.lastrowid
 
 
-def _add_participant_pc(db: sqlite3.Cursor, participant_id: int,
-                        os: str, specs: list[str]):
+def _add_pc(db: sqlite3.Cursor, participant_id: int, os: str, specs: list[str]):
     pc_query: str = 'INSERT INTO pc(participant_id, os) VALUES (?, ?);'
     pc_spec_query: str = (
         'INSERT INTO pc_spec(participant_id, spec) VALUES (?, ?);'
     )
+
+    db.execute(pc_query, (participant_id, os,))
+
+    pc_id: int = db.lastrowid
+    participant_specs: list[tuple[int, str]] = list()
+    for spec in specs:
+        participant_specs.append((pc_id, spec,))
+    db.executemany(pc_spec_query, participant_specs)
+
+
+def _add_mac(db: sqlite3.Cursor, participant_id: int, model: str, os: str):
+    query: str = 'INSERT INTO mac(participant_id, model, os) VALUES (?, ?, ?);'
+    db.execute(query, (participant_id, model, os,))
+
+
+def _add_mobile(db: sqlite3.Cursor, participant_id: int, model: str):
+    query: str = 'INSERT INTO mobile(participant_id, model) VALUES (?, ?);'
+    db.execute(query, (participant_id, model,))
+
+
+def _add_employment(db: sqlite3.Cursor,
+                    participant_id: int,
+                    employer_location: str,
+                    employment_arrangement: str,
+                    annual_income_range: str,
+                    annual_income_satisfaction: str):
+    query: str = (
+        'INSERT INTO employment(participant_id, employer_location,'
+        '                       employer_arrangement, annual_income_range,'
+        '                       annual_income_satisfaction)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    db.execute(query, (
+        participant_id,
+        employer_location,
+        employment_arrangement,
+        annual_income_range,
+        annual_income_satisfaction,)
+    )
+
+
+def _add_academics(db: sqlite3.Cursor, participant_id: int,
+                   academic_arrangement: str):
+    query: str = (
+        'INSERT INTO academics(participant_id, academic_arrangement)'
+        '            VALUES (?, ?);'
+    )
+    db.execute(query, (participant_id, academic_arrangement,))
+
+
+def _add_developer_activity(db: sqlite3.Cursor, participant_id: int,
+                            activity: str):
+    query: str = (
+        'INSERT INTO developer_activity(participant_id, activity)'
+        '            VALUES (?, ?);'
+    )
+    db.execute(query, (participant_id, activity,))
+
+
+def _add_tech_event_in_region(db: sqlite3.Cursor, participant_id: int,
+                              event: str):
+    query: str = (
+        'INSERT INTO tech_event_in_region(participant_id, event)'
+        '            VALUES (?, ?);'
+    )
+    db.execute(query, (participant_id, event,))
+
+
+def _add_tech_event_topic(db: sqlite3.Cursor, participant_id: int, topic: str):
+    query: str = (
+        'INSERT INTO tech_event_topic(participant_id, topic) VALUES (?, ?);'
+    )
+    db.execute(query, (participant_id, topic,))
+
+
+def _add_tech_event_food_or_drink(db: sqlite3.Cursor, participant_id: int,
+                                  suggestion: str):
+    query: str = (
+        'INSERT INTO tech_event_food_or_drink(participant_id, topic)'
+        '            VALUES (?, ?);'
+    )
+    db.execute(query, (participant_id, suggestion,))
