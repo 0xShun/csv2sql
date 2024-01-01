@@ -8,7 +8,35 @@ import types
 
 from pathlib import Path
 
-from . import evtss
+from . import evtss_2023
+
+
+def main():
+    logger: logging.Logger = _create_logger()
+
+    parser: argparse.ArgumentParser = _create_parser()
+    args: argparse.Namespace = parser.parse_args()
+    csv_file: io.TextIOWrapper = args.csv_file[0]
+    db_file: Path = args.db_file[0]
+    log_file: Path = args.log_file
+
+    log_file.parent.mkdir(parents=True, exist_ok=True)
+    log_file.touch(exist_ok=True)
+    _add_log_file_to_logger(logger, log_file)
+
+    csv_data: csv.DictReader = csv.DictReader(csv_file)
+    db_conn: sqlite3.Connection = sqlite3.connect(db_file)
+
+    db_cursor: sqlite3.Cursor = db_conn.cursor()
+
+    converter: types.ModuleType = evtss_2023
+    converter.create_tables(db_cursor)
+    converter.convert(csv_data, db_cursor)
+
+    db_conn.commit()
+
+    db_cursor.close()
+    db_conn.close()
 
 
 def _create_logger() -> logging.Logger:
@@ -69,27 +97,6 @@ def _create_parser() -> argparse.ArgumentParser:
                         default=default_log_file, help=logfile_arg_help)
 
     return parser
-
-
-def main():
-    logger: logging.Logger = _create_logger()
-
-    parser: argparse.ArgumentParser = _create_parser()
-    args: argparse.Namespace = parser.parse_args()
-    csv_file: io.TextIOWrapper = args.csv_file[0]
-    db_file: Path = args.db_file[0]
-    log_file: Path = args.log_file
-
-    log_file.parent.mkdir(parents=True, exist_ok=True)
-    log_file.touch(exist_ok=True)
-    _add_log_file_to_logger(logger, log_file)
-
-    csv_data: csv.reader = csv.reader(csv_file)
-    db_conn: sqlite3.Connection = sqlite3.connect(db_file)
-    db_cursor: sqlite3.Cursor = db_conn.cursor()
-
-    converter: types.ModuleType = evtss
-    converter.convert(csv_data, db_cursor)
 
 
 if __name__ == '__main__':
