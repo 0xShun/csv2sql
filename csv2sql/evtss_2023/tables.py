@@ -29,13 +29,13 @@ def create_tables(db: sqlite3.Cursor):
 def _create_participant_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS participant ('
-        '    id                              INT      AUTO_INCREMENT NOT NULL,'
+        '    id                              INT      PRIMARY KEY,'
         '    time_submitted                  DATETIME NOT NULL,'
         '    gender                          TEXT     NOT NULL,'
         '    location                        TEXT     NOT NULL,'
         '    hometown                        TEXT     NOT NULL,'
         '    age                             TEXT     NOT NULL,'
-        '    education_attainment            TEXT     NOT NULL,'
+        '    educational_attainment          TEXT     NOT NULL,'
         '    college_alma_mater              TEXT     NOT NULL,'
         '    degree                          TEXT     NOT NULL,'
         '    academic_learnings_satisfaction TEXT     NOT NULL,'
@@ -53,7 +53,6 @@ def _create_participant_table(db: sqlite3.Cursor):
         '    survey_difficulty               TEXT     NOT NULL,'
         '    event_location_suggestions      TEXT     NULL,'
         '    message_for_dev8                TEXT     NULL,'
-        '    PRIMARY KEY (id)'
         ');'
     )
     db.execute(query)
@@ -62,9 +61,8 @@ def _create_participant_table(db: sqlite3.Cursor):
 def _create_pc_tables(db: sqlite3.Cursor):
     pc_query: str = (
         'CREATE TABLE IF NOT EXISTS pc ('
-        '    participant_id INT  NOT NULL,'
+        '    participant_id INT  PRIMARY KEY,'
         '    os             TEXT NOT NULL,'
-        '    PRIMARY KEY (participant_id),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
         ');'
     )
@@ -83,10 +81,9 @@ def _create_pc_tables(db: sqlite3.Cursor):
 def _create_mac_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS mac ('
-        '    participant_id INT NOT NULL,'
+        '    participant_id INT  PRIMARY KEY,'
         '    model          TEXT NOT NULL,'
         '    os             TEXT NOT NULL,'
-        '    PRIMARY KEY (participant_id),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
         ');'
     )
@@ -96,9 +93,8 @@ def _create_mac_table(db: sqlite3.Cursor):
 def _create_mobile_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS mobile ('
-        '    participant_id INT NOT NULL,'
+        '    participant_id INT  PRIMARY KEY,'
         '    model          TEXT NOT NULL,'
-        '    PRIMARY KEY (participant_id),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
         ');'
     )
@@ -108,12 +104,11 @@ def _create_mobile_table(db: sqlite3.Cursor):
 def _create_employment_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS employment ('
-        '    participant_id             INT  NOT NULL,'
+        '    participant_id             INT  PRIMARY KEY,'
         '    employer_location          TEXT NOT NULL,'
         '    employment_arrangement     TEXT NOT NULL,'
         '    annual_income_range        TEXT NOT NULL,'
         '    annual_income_satisfaction TEXT NOT NULL,'
-        '    PRIMARY KEY (participant_id),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
         ');'
     )
@@ -123,9 +118,8 @@ def _create_employment_table(db: sqlite3.Cursor):
 def _create_academics_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS academics ('
-        '    participant_id       INT NOT NULL,'
+        '    participant_id       INT  PRIMARY KEY,'
         '    academic_arrangement TEXT NOT NULL,'
-        '    PRIMARY KEY (participant_id),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
         ');'
     )
@@ -135,7 +129,7 @@ def _create_academics_table(db: sqlite3.Cursor):
 def _create_developer_activity_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS developer_activity ('
-        '    participant_id INT NOT NULL,'
+        '    participant_id INT  NOT NULL,'
         '    activity       TEXT NOT NULL,'
         '    PRIMARY KEY (participant_id, activity),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
@@ -147,7 +141,7 @@ def _create_developer_activity_table(db: sqlite3.Cursor):
 def _create_tech_event_in_region_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS tech_event_in_region ('
-        '    participant_id INT NOT NULL,'
+        '    participant_id INT  NOT NULL,'
         '    event          TEXT NOT NULL,'
         '    PRIMARY KEY (participant_id, event),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
@@ -159,7 +153,7 @@ def _create_tech_event_in_region_table(db: sqlite3.Cursor):
 def _create_tech_event_topic_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS tech_event_topic ('
-        '    participant_id INT NOT NULL,'
+        '    participant_id INT  NOT NULL,'
         '    topic          TEXT NOT NULL,'
         '    PRIMARY KEY (participant_id, topic),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
@@ -171,7 +165,7 @@ def _create_tech_event_topic_table(db: sqlite3.Cursor):
 def _create_tech_event_food_or_drink_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS tech_event_food_or_drink ('
-        '    participant_id INT NOT NULL,'
+        '    participant_id INT  NOT NULL,'
         '    suggestion     TEXT NOT NULL,'
         '    PRIMARY KEY (participant_id, suggestion),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
@@ -183,7 +177,7 @@ def _create_tech_event_food_or_drink_table(db: sqlite3.Cursor):
 def _create_software_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS software ('
-        '    participant_id INT NOT NULL,'
+        '    participant_id INT  NOT NULL,'
         '    category       TEXT NOT NULL,'
         '    PRIMARY KEY (participant_id, category),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
@@ -195,7 +189,7 @@ def _create_software_table(db: sqlite3.Cursor):
 def _create_platform_table(db: sqlite3.Cursor):
     query: str = (
         'CREATE TABLE IF NOT EXISTS platform ('
-        '    participant_id INT NOT NULL,'
+        '    participant_id INT  NOT NULL,'
         '    platform       TEXT NOT NULL,'
         '    PRIMARY KEY (participant_id, platform),'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
