@@ -175,3 +175,38 @@ def _add_tech_event_food_or_drink(db: sqlite3.Cursor, participant_id: int,
         '            VALUES (?, ?);'
     )
     db.execute(query, (participant_id, suggestion,))
+
+
+def _add_software(db: sqlite3.Cursor, participant_id: int, category: str):
+    query: str = 'INSERT INTO software(participant_id, category) VALUES (?, ?);'
+    db.execute(query, (participant_id, category,))
+
+
+def _add_platform(db: sqlite3.Cursor, participant_id: int, platform: str):
+    query: str = 'INSERT INTO platform(participant_id, platform) VALUES (?, ?);'
+    db.execute(query, (participant_id, platform,))
+
+
+def _add_programming_language(db: sqlite3.Cursor,
+                              participant_id: int,
+                              language: str,
+                              did_not_like_using: bool,
+                              used: bool,
+                              want_to_use_next_year: bool,
+                              is_primary_language: bool):
+    query: str = (
+        'INSERT INTO programming_language(participant_id, language,'
+        '                                 did_not_like_using, used,'
+        '                                 want_to_use_next_year,'
+        '                                 is_primary_language)'
+        '            VALUES (?, ?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        language,
+        did_not_like_using,
+        used,
+        want_to_use_next_year,
+        is_primary_language,
+    )
+    db.execute(query, params)
