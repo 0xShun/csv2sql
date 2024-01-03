@@ -8,6 +8,7 @@ def create_tables(db: sqlite3.Cursor):
     _create_mobile_table(db)
     _create_employment_table(db)
     _create_academics_table(db)
+    _create_higher_academics_table(db)
     _create_developer_activity_table(db)
     _create_tech_event_in_region_table(db)
     _create_tech_event_topic_table(db)
@@ -36,9 +37,6 @@ def _create_participant_table(db: sqlite3.Cursor):
         '    hometown                        TEXT     NOT NULL,'
         '    age                             TEXT     NOT NULL,'
         '    educational_attainment          TEXT     NOT NULL,'
-        '    college_alma_mater              TEXT     NOT NULL,'
-        '    degree                          TEXT     NOT NULL,'
-        '    academic_learnings_satisfaction TEXT     NOT NULL,'
         '    computer_used                   TEXT     NOT NULL,'
         '    personal_description            TEXT     NOT NULL,'
         '    occupation                      TEXT     NOT NULL,'
@@ -120,6 +118,19 @@ def _create_academics_table(db: sqlite3.Cursor):
         'CREATE TABLE IF NOT EXISTS academics ('
         '    participant_id       INT  PRIMARY KEY,'
         '    academic_arrangement TEXT NOT NULL,'
+        '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
+        ');'
+    )
+    db.execute(query)
+
+
+def _create_higher_academics_table(db: sqlite3.Cursor):
+    query: str = (
+        'CREATE TABLE IF NOT EXISTS higher_academics ('
+        '    participant_id                  INT  PRIMARY KEY,'
+        '    college_alma_mater              TEXT NOT NULL,'
+        '    degree                          TEXT NOT NULL,'
+        '    academic_learnings_satisfaction TEXT NOT NULL,'
         '    FOREIGN KEY (participant_id) REFERENCES participant(id)'
         ');'
     )

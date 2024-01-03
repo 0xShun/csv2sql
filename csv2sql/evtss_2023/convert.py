@@ -32,6 +32,8 @@ def convert(file: csv.DictReader, db: sqlite3.Cursor):
         )
 
 
+
+
 def _add_participant(db: sqlite3.Cursor,
                      time_submitted: str,
                      gender: str,
@@ -208,5 +210,202 @@ def _add_programming_language(db: sqlite3.Cursor,
         used,
         want_to_use_next_year,
         is_primary_language,
+    )
+    db.execute(query, params)
+
+
+def _add_library(db: sqlite3.Cursor,
+                 participant_id: int,
+                 library: str,
+                 did_not_like_using: bool,
+                 used: bool,
+                 want_to_use_next_year: bool):
+    query: str = (
+        'INSERT INTO library(participant_id, library, did_not_like_using, '
+        '                    used, want_to_use_next_year)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        library,
+        did_not_like_using,
+        used,
+        want_to_use_next_year
+    )
+    db.execute(query, params)
+
+
+def _add_tool(db: sqlite3.Cursor,
+              participant_id: int,
+              tool: str,
+              did_not_like_using: bool,
+              used: bool,
+              want_to_use_next_year: bool):
+    query: str = (
+        'INSERT INTO tool(participant_id, tool,'
+        '                 did_not_like_using, used,'
+        '                 want_to_use_next_year)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        tool,
+        did_not_like_using,
+        used,
+        want_to_use_next_year
+    )
+    db.execute(query, params)
+
+
+def _add_coding_editor(db: sqlite3.Cursor,
+                       participant_id: int,
+                       editor: str,
+                       did_not_like_using: bool,
+                       used: bool,
+                       want_to_use_next_year: bool):
+    query: str = (
+        'INSERT INTO coding_editor(participant_id, editor,'
+        '                          did_not_like_using, used,'
+        '                          want_to_use_next_year)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        editor,
+        did_not_like_using,
+        used,
+        want_to_use_next_year
+    )
+    db.execute(query, params)
+
+
+def _add_database(db: sqlite3.Cursor,
+                  participant_id: int,
+                  database: str,
+                  did_not_like_using: bool,
+                  used: bool,
+                  want_to_use_next_year: bool):
+    query: str = (
+        'INSERT INTO database(participant_id, database,'
+        '                     did_not_like_using, used,'
+        '                     want_to_use_next_year)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        database,
+        did_not_like_using,
+        used,
+        want_to_use_next_year
+    )
+    db.execute(query, params)
+
+
+def _add_cloud_platform(db: sqlite3.Cursor,
+                        participant_id: int,
+                        platform: str,
+                        did_not_like_using: bool,
+                        used: bool,
+                        want_to_use_next_year: bool):
+    query: str = (
+        'INSERT INTO cloud_platform(participant_id, platform,'
+        '                           did_not_like_using, used,'
+        '                           want_to_use_next_year)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        platform,
+        did_not_like_using,
+        used,
+        want_to_use_next_year
+    )
+    db.execute(query, params)
+
+
+def _add_work_management_tool(db: sqlite3.Cursor,
+                              participant_id: int,
+                              tool: str,
+                              did_not_like_using: bool,
+                              used: bool,
+                              want_to_use_next_year: bool):
+    query: str = (
+        'INSERT INTO work_management_tool(participant_id, tool,'
+        '                                 did_not_like_using, used,'
+        '                                 want_to_use_next_year)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        tool,
+        did_not_like_using,
+        used,
+        want_to_use_next_year
+    )
+    db.execute(query, params)
+
+
+def _add_communication_tool(db: sqlite3.Cursor,
+                            participant_id: int,
+                            tool: str,
+                            did_not_like_using: bool,
+                            used: bool,
+                            want_to_use_next_year: bool):
+    query: str = (
+        'INSERT INTO communication_tool(participant_id, tool,'
+        '                               did_not_like_using, used,'
+        '                               want_to_use_next_year)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        tool,
+        did_not_like_using,
+        used,
+        want_to_use_next_year
+    )
+    db.execute(query, params)
+
+
+def _add_ai_search_tool(db: sqlite3.Cursor,
+                        participant_id: int,
+                        tool: str,
+                        did_not_like_using: bool,
+                        used: bool,
+                        want_to_use_next_year: bool):
+    query: str = (
+        'INSERT INTO ai_search_tool(participant_id, tool,'
+        '                           did_not_like_using, used,'
+        '                           want_to_use_next_year)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        tool,
+        did_not_like_using,
+        used,
+        want_to_use_next_year
+    )
+    db.execute(query, params)
+
+
+def _add_ai_developer_tool(db: sqlite3.Cursor,
+                           participant_id: int,
+                           tool: str,
+                           did_not_like_using: bool,
+                           used: bool,
+                           want_to_use_next_year: bool):
+    query: str = (
+        'INSERT INTO ai_developer_tool(participant_id, tool,'
+        '                              did_not_like_using, used,'
+        '                              want_to_use_next_year)'
+        '            VALUES (?, ?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        tool,
+        did_not_like_using,
+        used,
+        want_to_use_next_year
     )
     db.execute(query, params)
