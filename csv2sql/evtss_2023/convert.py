@@ -12,9 +12,6 @@ def convert(file: csv.DictReader, db: sqlite3.Cursor):
             row['Hometown'],
             row['Age'],
             row['Educational Attainment'],
-            row['College/University Alma Mater'],
-            row['Degree Programme'],
-            row['Academic Learnings'],
             row['Computer Used Most of the Time'],
             row['Personal Description'],
             row['Occupation'],
@@ -32,8 +29,6 @@ def convert(file: csv.DictReader, db: sqlite3.Cursor):
         )
 
 
-
-
 def _add_participant(db: sqlite3.Cursor,
                      time_submitted: str,
                      gender: str,
@@ -41,9 +36,6 @@ def _add_participant(db: sqlite3.Cursor,
                      hometown: str,
                      age: str,
                      educational_attainment: str,
-                     college_alma_mater: str,
-                     degree: str,
-                     academic_learnings_satisfaction: str,
                      computer_used: str,
                      personal_description: str,
                      occupation: str,
@@ -61,8 +53,6 @@ def _add_participant(db: sqlite3.Cursor,
     query: str = (
         'INSERT INTO participant(time_submitted, gender, location,'
         '                        hometown, age, educational_attainment,'
-        '                        college_alma_mater, degree,'
-        '                        academic_learnings_satisfaction,'
         '                        computer_used, personal_description,'
         '                        occupation, programming_exp_length,'
         '                        prof_programming_exp_length, developer_type,'
@@ -72,12 +62,11 @@ def _add_participant(db: sqlite3.Cursor,
         '                        oss_code_ai_training_sentiment,'
         '                        is_survey_length_okay, survey_difficulty,'
         '                        event_location_suggestions, message_for_dev8)'
-        '            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,'
+        '            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,'
         '                    ?, ?, ?, ?, ?, ?);'
     )
     params: tuple = (
         time_submitted, gender, location, hometown, age, educational_attainment,
-        college_alma_mater, degree, academic_learnings_satisfaction,
         computer_used, personal_description, occupation,
         programming_exp_length, prof_programming_exp_length, developer_type,
         local_cs_it_sentiments, all_data_ai_training_sentiment,
@@ -143,6 +132,23 @@ def _add_academics(db: sqlite3.Cursor, participant_id: int,
         '            VALUES (?, ?);'
     )
     db.execute(query, (participant_id, academic_arrangement,))
+
+
+def _add_higher_academics(db: sqlite3.Cursor, participant_id: int,
+                          college_alma_mater: str, degree: str,
+                          academic_learnings_satisfaction: str):
+    query: str = (
+        'INSERT INTO higher_academics(participant_id, college_alma_mater,'
+        '                             degree, academic_arrangement)'
+        '            VALUES (?, ?, ?, ?);'
+    )
+    params: tuple = (
+        participant_id,
+        college_alma_mater,
+        degree,
+        academic_learnings_satisfaction,
+    )
+    db.execute(query, params)
 
 
 def _add_developer_activity(db: sqlite3.Cursor, participant_id: int,
