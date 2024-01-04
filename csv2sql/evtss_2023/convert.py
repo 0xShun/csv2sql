@@ -165,7 +165,172 @@ def convert(file: csv.DictReader, db: sqlite3.Cursor):
         for activity in developer_activities:
             _add_developer_activity(db, participant_id, activity)
 
+        primary_languages: set[str] = set(row['Primary Languages'].split(';'))
+        for lang in languages:
+            column_name: str = f'Languages Used, Loved, and Hated [{lang}]'
+            lang_interest: set[str] = set(row[column_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in lang_interest
+            used: bool = 'Used this year' in lang_interest
+            want_to_use_next_yr: bool = 'Want to use next year' in lang_interest
+            is_primary_language: bool = lang in primary_languages
+            _add_programming_language(db,
+                                      participant_id,
+                                      lang,
+                                      did_not_like_using,
+                                      used,
+                                      want_to_use_next_yr,
+                                      is_primary_language)
 
+        column_name: str = 'Software Being Developed'
+        software_being_developed: list[str] = row[column_name].split(';')
+        for software in software_being_developed:
+            _add_software(db, participant_id, software)
+
+        platforms: list[str] = row['Platforms'].split(';')
+        for platform in platforms:
+            _add_platform(db, participant_id, platform)
+
+        for library in libraries:
+            column_name: str = f'Frameworks and Libraries [{library}]'
+            lib_interest: set[str] = set(row[column_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in lib_interest
+            used: bool = 'Used this year' in lib_interest
+            want_to_use_next_yr: bool = 'Want to use next year' in lib_interest
+            _add_library(db,
+                         participant_id,
+                         library,
+                         did_not_like_using,
+                         used,
+                         want_to_use_next_yr)
+
+        for tool in tools:
+            column_name: str = f'Tools [{tool}]'
+            tool_interest: set[str] = set(row[column_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in tool_interest
+            used: bool = 'Used this year' in tool_interest
+            want_to_use_next_yr: bool = 'Want to use next year' in tool_interest
+            _add_tool(db,
+                      participant_id,
+                      tool,
+                      did_not_like_using,
+                      used,
+                      want_to_use_next_yr)
+
+        for editor in editors:
+            column_name: str = f'IDEs and Text Editors [{editor}]'
+            editor_interest: set[str] = set(row[column_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in editor_interest
+            used: bool = 'Used this year' in editor_interest
+            want_to_use_ny: bool = 'Want to use next year' in editor_interest
+            _add_coding_editor(db,
+                               participant_id,
+                               editor,
+                               did_not_like_using,
+                               used,
+                               want_to_use_ny)
+
+        for database in databases:
+            column_name: str = f'Databases Used, Loved, and Hated [{database}]'
+            db_interest: set[str] = set(row[column_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in db_interest
+            used: bool = 'Used this year' in db_interest
+            want_to_use_next_yr: bool = 'Want to use next year' in db_interest
+            _add_database(db,
+                          participant_id,
+                          database,
+                          did_not_like_using,
+                          used,
+                          want_to_use_next_yr)
+
+        for platform in cloud_platforms:
+            col_name: str = f'Cloud Platforms Used, Loved, and Hated [{platform}]'
+            platform_interest: set[str] = set(row[col_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in platform_interest
+            used: bool = 'Used this year' in platform_interest
+            want_to_use_ny: bool = 'Want to use next year' in platform_interest
+            _add_cloud_platform(db,
+                                participant_id,
+                                platform,
+                                did_not_like_using,
+                                used,
+                                want_to_use_ny)
+
+        for tool in work_management_tools:
+            col_name: str = f'Work Management and Code Documentation [{tool}]'
+            tool_interest: set[str] = set(row[col_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in tool_interest
+            used: bool = 'Used this year' in tool_interest
+            want_to_use_ny: bool = 'Want to use next year' in tool_interest
+            _add_work_management_tool(db,
+                                      participant_id,
+                                      tool,
+                                      did_not_like_using,
+                                      used,
+                                      want_to_use_ny)
+
+        for tool in communication_tools:
+            column_name: str = f'Communication Tools [{tool}]'
+            tool_interest: set[str] = set(row[column_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in tool_interest
+            used: bool = 'Used this year' in tool_interest
+            want_to_use_ny: bool = 'Want to use next year' in tool_interest
+            _add_communication_tool(db,
+                                    participant_id,
+                                    tool,
+                                    did_not_like_using,
+                                    used,
+                                    want_to_use_ny)
+
+        for tool in communication_tools:
+            column_name: str = f'Communication Tools [{tool}]'
+            tool_interest: set[str] = set(row[column_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in tool_interest
+            used: bool = 'Used this year' in tool_interest
+            want_to_use_ny: bool = 'Want to use next year' in tool_interest
+            _add_communication_tool(db,
+                                    participant_id,
+                                    tool,
+                                    did_not_like_using,
+                                    used,
+                                    want_to_use_ny)
+
+        tech_events: list[str] = row['Tech Events in the Region'].split(';')
+        for event in tech_events:
+            _add_tech_event_in_region(db, participant_id, event)
+
+        topics: list[str] = row['Topics'].split(';')
+        for topic in topics:
+            _add_tech_event_topic(db, participant_id, topic)
+
+        for tool in ai_search_tools:
+            column_name: str = f'AI Search Tools [{tool}]'
+            tool_interest: set[str] = set(row[column_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in tool_interest
+            used: bool = 'Used this year' in tool_interest
+            want_to_use_ny: bool = 'Want to use next year' in tool_interest
+            _add_ai_search_tool(db,
+                                participant_id,
+                                tool,
+                                did_not_like_using,
+                                used,
+                                want_to_use_ny)
+
+        for tool in ai_developer_tools:
+            column_name: str = f'AI Developer Tools [{tool}]'
+            tool_interest: set[str] = set(row[column_name].split(';'))
+            did_not_like_using: bool = 'Did not like using' in tool_interest
+            used: bool = 'Used this year' in tool_interest
+            want_to_use_ny: bool = 'Want to use next year' in tool_interest
+            _add_ai_developer_tool(db,
+                                   participant_id,
+                                   tool,
+                                   did_not_like_using,
+                                   used,
+                                   want_to_use_ny)
+
+        victuals: list[str] = row['Event Food and Drinks'].split(';')
+        for victual in victuals:
+            _add_tech_event_food_or_drink(db, participant_id, victual)
 
 
 def _add_participant(db: sqlite3.Cursor,
