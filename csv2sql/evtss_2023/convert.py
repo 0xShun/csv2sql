@@ -54,7 +54,7 @@ def convert(file: csv.DictReader, db: sqlite3.Cursor):
         'Micro', 'Nano', 'Neovim', 'NetBeans', 'Notepad++', 'Nova', 'PhpStorm',
         'PyCharm', 'Qt Creator', 'RAD Studio', 'Rider', 'RStudio', 'RubyMine',
         'RustRover', 'Spyder', 'Sublime Text', 'TextMate', 'Vim',
-        'Visual Studio', 'Visual Studio Code', 'VSCodium', 'WebStorm', 'XCode',
+        'Visual Studio', 'Visual Studio Code', 'VSCodium', 'WebStorm', 'Xcode',
     )
     databases: tuple = (
         'BigQuery', 'Cassandra', 'Clickhouse', 'Cloud Firestore', 'CockroachDB',
@@ -281,19 +281,6 @@ def convert(file: csv.DictReader, db: sqlite3.Cursor):
                                     used,
                                     want_to_use_ny)
 
-        for tool in communication_tools:
-            column_name: str = f'Communication Tools [{tool}]'
-            tool_interest: set[str] = set(row[column_name].split(';'))
-            did_not_like_using: bool = 'Did not like using' in tool_interest
-            used: bool = 'Used this year' in tool_interest
-            want_to_use_ny: bool = 'Want to use next year' in tool_interest
-            _add_communication_tool(db,
-                                    participant_id,
-                                    tool,
-                                    did_not_like_using,
-                                    used,
-                                    want_to_use_ny)
-
         tech_events: list[str] = row['Tech Events in the Region'].split(';')
         for event in tech_events:
             _add_tech_event_in_region(db, participant_id, event)
@@ -416,7 +403,7 @@ def _add_employment(db: sqlite3.Cursor,
                     annual_income_satisfaction: str):
     query: str = (
         'INSERT INTO employment(participant_id, employer_location,'
-        '                       employer_arrangement, annual_income_range,'
+        '                       employment_arrangement, annual_income_range,'
         '                       annual_income_satisfaction)'
         '            VALUES (?, ?, ?, ?, ?);'
     )
@@ -443,7 +430,7 @@ def _add_higher_academics(db: sqlite3.Cursor, participant_id: int,
                           academic_learnings_satisfaction: str):
     query: str = (
         'INSERT INTO higher_academics(participant_id, college_alma_mater,'
-        '                             degree, academic_arrangement)'
+        '                             degree, academic_learnings_satisfaction)'
         '            VALUES (?, ?, ?, ?);'
     )
     params: tuple = (
@@ -483,7 +470,7 @@ def _add_tech_event_topic(db: sqlite3.Cursor, participant_id: int, topic: str):
 def _add_tech_event_food_or_drink(db: sqlite3.Cursor, participant_id: int,
                                   suggestion: str):
     query: str = (
-        'INSERT INTO tech_event_food_or_drink(participant_id, topic)'
+        'INSERT INTO tech_event_food_or_drink(participant_id, suggestion)'
         '            VALUES (?, ?);'
     )
     db.execute(query, (participant_id, suggestion,))
