@@ -11,6 +11,28 @@ from pathlib import Path
 from . import evtss_2023
 
 
+# This program converts CSV files into SQLite databases. Here's how it works:
+#
+# 1. Sets up logging:
+#    - Creates a logger that outputs to both console and file
+#    - Console shows simple messages, file shows detailed logs with timestamps
+#
+# 2. Processes command line arguments:
+#    - Required: CSV input file path
+#    - Required: SQLite database output file path  
+#    - Optional: Custom log file path (defaults to system-specific location)
+#
+# 3. Prepares the files:
+#    - Creates log file directory if needed
+#    - Opens CSV file for reading
+#    - Creates/opens SQLite database connection
+#
+# 4. Converts CSV to SQLite:
+#    - Uses the evtss_2023 module as the converter
+#    - Creates necessary database tables
+#    - Processes CSV data and inserts into database
+#    - Commits changes and closes connections
+#
 def main():
     logger: logging.Logger = _create_logger()
 
@@ -29,9 +51,14 @@ def main():
 
     db_cursor: sqlite3.Cursor = db_conn.cursor()
 
-    converter: types.ModuleType = evtss_2023
-    converter.create_tables(db_cursor)
-    converter.convert(csv_data, db_cursor)
+    # Ensure the evtss_2023 module is correctly integrated
+    try:
+        evtss_2023.create_tables(db_cursor)
+        evtss_2023.convert(csv_data, db_cursor)
+    except Exception as e:
+        logger.error(f"Error during conversion: {e}")
+        db_conn.rollback()
+        return
 
     db_conn.commit()
 
@@ -40,6 +67,7 @@ def main():
 
 
 def _create_logger() -> logging.Logger:
+    # Creates the base logger with console output
     logger: logging.Logger = logging.getLogger('csv2sql')
     logger.setLevel(logging.INFO)
 
@@ -55,6 +83,8 @@ def _create_logger() -> logging.Logger:
 
 
 def _get_default_log_file_path() -> Path:
+    # Returns platform-specific default log file path
+    # Currently only supports Linux
     if platform.system() == 'Linux':
         return Path.home() / '.local/state/dev8/csv2sql/csv2sql.log'
     else:
@@ -63,6 +93,7 @@ def _get_default_log_file_path() -> Path:
 
 
 def _add_log_file_to_logger(logger: logging.Logger, log_file: Path):
+    # Adds file logging with detailed formatting
     handler: logging.FileHandler = logging.FileHandler(log_file)
     handler.setLevel(logging.INFO)
 
@@ -74,6 +105,7 @@ def _add_log_file_to_logger(logger: logging.Logger, log_file: Path):
 
 
 def _create_parser() -> argparse.ArgumentParser:
+    # Sets up command line argument parsing
     logger: logging.Logger = logging.getLogger('csv2sql')
 
     desc = 'Create an SQLite database out of a CSV file.'
