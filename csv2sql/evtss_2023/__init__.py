@@ -1,5 +1,5 @@
 from .table_schema import create_tables
-from .data_insertion import (
+from ..evtss_2024.data_insertion import (
     insert_participant,
     insert_work_arrangement,
     insert_developer_activity,

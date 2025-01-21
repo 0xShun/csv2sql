@@ -1,0 +1,163 @@
+Participant
+---
+id
+time_submitted 
+gender
+location
+hometown
+age
+educational_attainment
+degree_programme (NULL if no degree for simplicity's sake)
+computer_used
+computer_specs
+os
+personal_description
+occupation
+programming_exp_length
+prof_programming_exp_length
+developer_type
+local_cs_it_sentiments
+ai_dev_use (Note: Refers to the "Using AI in Development" question.)/
+ai_trust (Note: Refers to the "Trust in AI" question.)
+ai_lawsuit_awareness
+oss_license_compliance
+survey_length_opinion
+survey_difficulty
+survey_comment
+event_location_suggestions
+message_for_dev8
+message_for_partners
+programming_fuel
+
+WorkArrangement
+---
+participant_id | FK, PK
+sector
+employer_location
+employment_arrangement
+average_monthly_income_range
+income_satisfaction
+
+DeveloperActivity
+---
+participant_id | FK, PK
+activity | PK
+
+ProgrammingLanguage
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+is_primary_language
+
+SoftwareCategory
+---
+participant_id | FK, K
+name | PK
+
+Platform
+---
+participant_id | FK, PK
+name | PK
+
+Library (Note: This is for the "Frameworks, Libraries, and Other Tech" question.)
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+
+CodingEditor
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+Tool
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+Database
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+CloudPlatform
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+Database
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+CodePlatform (Note: This is for the "Code Repository and CI/CD" question.)
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+WorkManagementTool
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+CommunicationTool
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+AIUsage
+---
+participant_id | FK, PK
+name | PK
+did_not_like_using
+used
+want_to_use_next_year
+
+AIEthicalIssue
+---
+participant_id | FK, PK
+name | PK
+
+TechEventCategory
+---
+participant_id | FK, PK
+name | PK
+
+TechEventTopic
+---
+participant_id | FK, PK
+name | PK
+
+TechEventConsumable
+participant_id | FK, PK
+name | PK
