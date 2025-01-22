@@ -1,10 +1,10 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     
     name='csv2sql',             
     version='0.2',               
-    packages=['csv2sql'],       
+    packages=find_packages(),
     
     url='https://github.com/Dev8-Community/csv2sql', 
     license='MPL-2.0', 
