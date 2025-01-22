@@ -10,8 +10,7 @@ def create_tables(cursor):
         gender TEXT,
         location TEXT,
         hometown TEXT,
-        age INTEGER,
-        education_level TEXT,
+        age TEXT,
         educational_attainment TEXT,
         degree_programme TEXT,
         computer_used TEXT,
@@ -56,10 +55,10 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS ProgrammingLanguage (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
-        is_primary_language TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
+        is_primary_language BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')
@@ -81,9 +80,9 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS Library (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')
@@ -91,9 +90,9 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS CodingEditor (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')
@@ -101,9 +100,9 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS Tool (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')
@@ -111,9 +110,9 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS Database (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')
@@ -121,9 +120,9 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS CloudPlatform (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')
@@ -131,9 +130,9 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS CodePlatform (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')
@@ -141,9 +140,9 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS WorkManagementTool (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')
@@ -151,9 +150,9 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS CommunicationTool (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')
@@ -161,9 +160,9 @@ def create_tables(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS AIUsage (
         participant_id INTEGER,
         name TEXT,
-        did_not_like_using TEXT,
-        used TEXT,
-        want_to_use_next_year TEXT,
+        did_not_like_using BOOLEAN,
+        used BOOLEAN,
+        want_to_use_next_year BOOLEAN,
         PRIMARY KEY(participant_id, name),
         FOREIGN KEY(participant_id) REFERENCES Participant(id)
     )''')

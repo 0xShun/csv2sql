@@ -9,23 +9,24 @@ def insert_participant(cursor, data):
     :param data: Dictionary containing participant data
     """
     cursor.execute('''INSERT INTO Participant (
-        time_submitted, gender, location, hometown, age, education_level, educational_attainment,
+        time_submitted, gender, location, hometown, age, educational_attainment,
         degree_programme, computer_used, computer_specs, os, personal_description, occupation,
         programming_exp_length, prof_programming_exp_length, developer_type, local_cs_it_sentiments,
         ai_dev_use, ai_trust, ai_lawsuit_awareness, oss_license_compliance, survey_length_opinion,
         survey_difficulty, survey_comment, event_location_suggestions, message_for_dev8,
         message_for_partners, programming_fuel
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ''', (
         data['time_submitted'], data['gender'], data['location'], data['hometown'], data['age'],
-        data['education_level'], data['educational_attainment'], data['degree_programme'],
-        data['computer_used'], data['computer_specs'], data['os'], data['personal_description'],
-        data['occupation'], data['programming_exp_length'], data['prof_programming_exp_length'],
-        data['developer_type'], data['local_cs_it_sentiments'], data['ai_dev_use'], data['ai_trust'],
+        data['educational_attainment'], data['degree_programme'], data['computer_used'],
+        data['computer_specs'], data['os'], data['personal_description'], data['occupation'],
+        data['programming_exp_length'], data['prof_programming_exp_length'], data['developer_type'],
+        data['local_cs_it_sentiments'], data['ai_dev_use'], data['ai_trust'],
         data['ai_lawsuit_awareness'], data['oss_license_compliance'], data['survey_length_opinion'],
         data['survey_difficulty'], data['survey_comment'], data['event_location_suggestions'],
         data['message_for_dev8'], data['message_for_partners'], data['programming_fuel']
     ))
+    return cursor.lastrowid
 
 def insert_work_arrangement(cursor, data):
     """
