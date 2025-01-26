@@ -33,7 +33,7 @@ def convert(csv_data, cursor):
         cleaned_row = {key.strip(): value.strip() if isinstance(value, str) else value for key, value in row.items()}
         participant_data = {
             'time_submitted': cleaned_row.get('Timestamp', ''),
-            'gender': cleaned_row.get('😎 Gender ', ''),
+            'gender': cleaned_row.get('😎 Gender', ''),
             'location': cleaned_row.get('📌 Location', ''),
             'hometown': cleaned_row.get('🌻 Hometown', ''),
             'age': cleaned_row.get('🤓 Age', ''),
@@ -44,8 +44,8 @@ def convert(csv_data, cursor):
             'os': cleaned_row.get('💿 Operating System', ''),
             'personal_description': cleaned_row.get('🌟 Personal Description', ''),
             'occupation': cleaned_row.get('⚒️ Occupation', ''),
-            'programming_exp_length': int(cleaned_row.get('💪 Length of Programming Experience', 0)) if cleaned_row.get('💪 Length of Programming Experience', '').isdigit() else 0,
-            'prof_programming_exp_length': int(cleaned_row.get('👔Length of Professional Programming Experience', 0)) if cleaned_row.get('👔Length of Professional Programming Experience', '').isdigit() else 0,
+            'programming_exp_length': cleaned_row.get('💪 Length of Programming Experience', ''),
+            'prof_programming_exp_length': cleaned_row.get('👔Length of Professional Programming Experience', ''),
             'developer_type': cleaned_row.get('🧰 Developer Type', ''),
             'local_cs_it_sentiments': cleaned_row.get('💡 Local CS/IT Sentiments', ''),
             'ai_dev_use': cleaned_row.get('🤖 Using AI in Development', ''),
@@ -95,9 +95,9 @@ def convert(csv_data, cursor):
                     programming_language_data = {
                         'participant_id': participant_id,
                         'name': lang_name,
-                        'did_not_like_using': 1 if 'did_not_like' in cleaned_row[lang_col].lower() else 0,
-                        'used': 1 if 'used' in cleaned_row[lang_col].lower() else 0,
-                        'want_to_use_next_year': 1 if 'want_to_use' in cleaned_row[lang_col].lower() else 0,
+                        'did_not_like_using': 1 if 'did not like using' in cleaned_row[lang_col].lower() else 0,
+                        'used': 1 if 'used this year' in cleaned_row[lang_col].lower() else 0,
+                        'want_to_use_next_year': 1 if 'want to use next year' in cleaned_row[lang_col].lower() else 0,
                         'is_primary_language': 1 if lang_name in primary_languages else 0
                     }
                     insert_programming_language(cursor, programming_language_data)
@@ -134,9 +134,9 @@ def convert(csv_data, cursor):
                     library_data = {
                         'participant_id': participant_id,
                         'name': lib_name,
-                        'did_not_like_using': 1 if 'did_not_like' in cleaned_row[lib_col].lower() else 0,
-                        'used': 1 if 'used' in cleaned_row[lib_col].lower() else 0,
-                        'want_to_use_next_year': 1 if 'want_to_use' in cleaned_row[lib_col].lower() else 0
+                        'did_not_like_using': 1 if 'did not like using' in cleaned_row[lib_col].lower() else 0,
+                        'used': 1 if 'used this year' in cleaned_row[lib_col].lower() else 0,
+                        'want_to_use_next_year': 1 if 'want to use next year' in cleaned_row[lib_col].lower() else 0
                     }
                     insert_library(cursor, library_data)
 
@@ -150,9 +150,9 @@ def convert(csv_data, cursor):
                     editor_data = {
                         'participant_id': participant_id,
                         'name': editor_name,
-                        'did_not_like_using': 1 if 'did_not_like' in cleaned_row[editor_col].lower() else 0,
+                        'did_not_like_using': 1 if 'did not like using' in cleaned_row[editor_col].lower() else 0,
                         'used': 1 if 'used' in cleaned_row[editor_col].lower() else 0,
-                        'want_to_use_next_year': 1 if 'want_to_use' in cleaned_row[editor_col].lower() else 0
+                        'want_to_use_next_year': 1 if 'want to use next year' in cleaned_row[editor_col].lower() else 0
                     }
                     insert_coding_editor(cursor, editor_data)
 
@@ -166,9 +166,9 @@ def convert(csv_data, cursor):
                     tool_data = {
                         'participant_id': participant_id,
                         'name': tool_name,
-                        'did_not_like_using': 1 if 'did_not_like' in cleaned_row[tool_col].lower() else 0,
+                        'did_not_like_using': 1 if 'did not like using' in cleaned_row[tool_col].lower() else 0,
                         'used': 1 if 'used' in cleaned_row[tool_col].lower() else 0,
-                        'want_to_use_next_year': 1 if 'want_to_use' in cleaned_row[tool_col].lower() else 0
+                        'want_to_use_next_year': 1 if 'want to use next year' in cleaned_row[tool_col].lower() else 0
                     }
                     insert_tool(cursor, tool_data)
 
@@ -182,9 +182,9 @@ def convert(csv_data, cursor):
                     db_data = {
                         'participant_id': participant_id,
                         'name': db_name,
-                        'did_not_like_using': 1 if 'did_not_like' in cleaned_row[db_col].lower() else 0,
+                        'did_not_like_using': 1 if 'did not like using' in cleaned_row[db_col].lower() else 0,
                         'used': 1 if 'used' in cleaned_row[db_col].lower() else 0,
-                        'want_to_use_next_year': 1 if 'want_to_use' in cleaned_row[db_col].lower() else 0
+                        'want_to_use_next_year': 1 if 'want to use next year' in cleaned_row[db_col].lower() else 0
                     }
                     insert_database(cursor, db_data)
 
@@ -198,9 +198,9 @@ def convert(csv_data, cursor):
                     cloud_platform_data = {
                         'participant_id': participant_id,
                         'name': platform_name,
-                        'did_not_like_using': 1 if 'did_not_like' in cleaned_row[platform_col].lower() else 0,
+                        'did_not_like_using': 1 if 'did not like using' in cleaned_row[platform_col].lower() else 0,
                         'used': 1 if 'used' in cleaned_row[platform_col].lower() else 0,
-                        'want_to_use_next_year': 1 if 'want_to_use' in cleaned_row[platform_col].lower() else 0
+                        'want_to_use_next_year': 1 if 'want to use next year' in cleaned_row[platform_col].lower() else 0
                     }
                     insert_cloud_platform(cursor, cloud_platform_data)
 
@@ -214,9 +214,9 @@ def convert(csv_data, cursor):
                     code_platform_data = {
                         'participant_id': participant_id,
                         'name': platform_name,
-                        'did_not_like_using': 1 if 'did_not_like' in cleaned_row[platform_col].lower() else 0,
+                        'did_not_like_using': 1 if 'did not like using' in cleaned_row[platform_col].lower() else 0,
                         'used': 1 if 'used' in cleaned_row[platform_col].lower() else 0,
-                        'want_to_use_next_year': 1 if 'want_to_use' in cleaned_row[platform_col].lower() else 0
+                        'want_to_use_next_year': 1 if 'want to use next year' in cleaned_row[platform_col].lower() else 0
                     }
                     insert_code_platform(cursor, code_platform_data)
 
@@ -230,9 +230,9 @@ def convert(csv_data, cursor):
                     work_tool_data = {
                         'participant_id': participant_id,
                         'name': tool_name,
-                        'did_not_like_using': 1 if 'did_not_like' in cleaned_row[tool_col].lower() else 0,
+                        'did_not_like_using': 1 if 'did not like using' in cleaned_row[tool_col].lower() else 0,
                         'used': 1 if 'used' in cleaned_row[tool_col].lower() else 0,
-                        'want_to_use_next_year': 1 if 'want_to_use' in cleaned_row[tool_col].lower() else 0
+                        'want_to_use_next_year': 1 if 'want to use next year' in cleaned_row[tool_col].lower() else 0
                     }
                     insert_work_management_tool(cursor, work_tool_data)
 
@@ -246,9 +246,9 @@ def convert(csv_data, cursor):
                     comm_tool_data = {
                         'participant_id': participant_id,
                         'name': tool_name,
-                        'did_not_like_using': 1 if 'did_not_like' in cleaned_row[tool_col].lower() else 0,
+                        'did_not_like_using': 1 if 'did not like using' in cleaned_row[tool_col].lower() else 0,
                         'used': 1 if 'used' in cleaned_row[tool_col].lower() else 0,
-                        'want_to_use_next_year': 1 if 'want_to_use' in cleaned_row[tool_col].lower() else 0
+                        'want_to_use_next_year': 1 if 'want to use next year' in cleaned_row[tool_col].lower() else 0
                     }
                     insert_communication_tool(cursor, comm_tool_data)
 
