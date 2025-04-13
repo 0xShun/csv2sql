@@ -7,7 +7,7 @@ import sqlite3
 from pathlib import Path
 import importlib
 
-def main():
+def main() -> None:
     # Create a logger for logging information and errors
     logger: logging.Logger = _create_logger()
 
@@ -88,7 +88,7 @@ def _get_default_log_file_path() -> Path:
         raise NotImplementedError(msg)
 
 
-def _add_log_file_to_logger(logger: logging.Logger, log_file: Path):
+def _add_log_file_to_logger(logger: logging.Logger, log_file: Path) -> None:
     # Create a file handler for logging to a file
     handler: logging.FileHandler = logging.FileHandler(log_file)
     handler.setLevel(logging.INFO)
@@ -116,7 +116,7 @@ def _create_parser() -> argparse.ArgumentParser:
     # Attempt to get the default log file path
     default_log_file: Path = None
     try:
-        default_log_file = _get_default_log_file_path()
+        default_log_file: Path = _get_default_log_file_path()
     except NotImplementedError as e:
         logger.warning(str(e))
 
