@@ -107,8 +107,8 @@ def _create_parser() -> argparse.ArgumentParser:
     logger: logging.Logger = logging.getLogger('csv2sql')
 
     # Define command line argument descriptions
-    desc = 'Convert EVTSS 2024 survey data from CSV format to SQLite database.'
-    csv_file_arg_help = 'CSV file containing EVTSS 2024 survey responses'
+    desc = 'Convert EVTSS survey data from CSV format to SQLite database.'
+    csv_file_arg_help = 'CSV file containing EVTSS survey responses'
     output_arg_help = 'Output SQLite database file path'
     logfile_arg_help = 'Log file path (platform-specific default if not specified)'
     module_arg_help = 'Module name for conversion functions'
@@ -130,7 +130,7 @@ def _create_parser() -> argparse.ArgumentParser:
     parser.add_argument('--log-file', metavar='LOG_FILE', type=Path,
                         default=default_log_file, help=logfile_arg_help)
     parser.add_argument('--module', '-m', metavar='MODULE', type=str,
-                    default='evtss_2024', help=module_arg_help)
+                    choices=['evtss_2023', 'evtss_2024'], help=module_arg_help)
 
     return parser
 
