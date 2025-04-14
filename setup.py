@@ -6,7 +6,7 @@ setup(
     version='0.2',               
     packages=find_packages(),
     
-    url='https://github.com/Dev8-Community/csv2sql', 
+    url='https://github.com/dev8community/csv2sql', 
     license='MPL-2.0', 
     
     author='Sean Francis N. Ballais, Shawn Michael A. Sudaria',

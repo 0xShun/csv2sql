@@ -25,7 +25,7 @@ def main() -> None:
     _add_log_file_to_logger(logger, log_file)
 
     # Dynamically import the module specified by the user
-    module = importlib.import_module(module_name)
+    module = importlib.import_module(f"csv2sql.{module_name}")
     create_tables = getattr(module, 'create_tables')
     convert = getattr(module, 'convert')
 

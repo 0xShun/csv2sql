@@ -7,7 +7,7 @@ authors = [
     {name = "Sean Francis N. Ballais", email = "sean@seanballais.com"},
 ]
 dependencies = ["setuptools>=75.8.0"]
-requires-python = ">=3.9.*"
+requires-python = ">=3.9"
 readme = "README.md"
 license = {text = "MIT"}
 
